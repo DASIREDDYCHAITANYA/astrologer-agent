@@ -16,7 +16,6 @@ def predict():
         place = request.form.get("place")
         question = request.form.get("question")
 
-        # Call your LLM function
         result = response_(name, dob, time, place, question)
 
         return jsonify({"status": "success", "response": result})
