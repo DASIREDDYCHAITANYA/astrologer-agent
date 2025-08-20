@@ -2,7 +2,7 @@ from groq import Groq
 import json
 
 # Set your API key
-api_key = "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"
+api_key = "api"
 client = Groq(api_key=api_key)
 
 
