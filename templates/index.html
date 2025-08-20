@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrology Predictions</title>
+</head>
+<body style="font-family: Arial; margin: 40px;">
+    <h1>Astrology Predictions</h1>
+
+    <form id="astroForm">
+        <label>Name:</label><br>
+        <input type="text" name="name" required><br><br>
+
+        <label>Date of Birth:</label><br>
+        <input type="date" name="dob" required><br><br>
+
+        <label>Time of Birth:</label><br>
+        <input type="time" name="time" required><br><br>
+
+        <label>Place of Birth:</label><br>
+        <input type="text" name="place" required><br><br>
+
+        <label>Your Question:</label><br>
+        <textarea name="question" rows="3" required></textarea><br><br>
+
+        <button type="submit">Get Prediction</button>
+    </form>
+
+    <hr>
+    <h2>Astrology Response:</h2>
+    <div id="response" style="white-space: pre-line;"></div>
+
+    <script>
+        const form = document.getElementById("astroForm");
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+            const responseBox = document.getElementById("response");
+            responseBox.innerHTML = "Generating prediction... ⏳";
+
+            const res = await fetch("/predict", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await res.json();
+            if (data.status === "success") {
+                responseBox.innerText = data.response;
+            } else {
+                responseBox.innerText = "Error: " + data.response;
+            }
+        });
+    </script>
+</body>
+</html>
